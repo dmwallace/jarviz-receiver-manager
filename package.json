@@ -1,0 +1,17 @@
+{
+  "name": "jarviz-receiver-manager",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "repository": "https://github.com/dmwallace/jarviz-receiver-manager.git",
+  "author": "Dave Wallace <davewallace@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "github-download": "^0.5.0",
+    "rimraf": "^2.6.2"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "autorun": "schtasks /create /TN jarviz-receiver /SC ONLOGON /RL HIGHEST /TR \"node c:\\jarviz-receiver-manager-master\\src\\index.js\" /F",
+    "setup": "npm run autorun && npm install && npm start"
+  }
+}
