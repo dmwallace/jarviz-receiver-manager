@@ -62,7 +62,7 @@ function launch() {
         console.log(data.toString());
     });
     jarviz_receiver.on('close', function (code) {
-        console.log(`Child ${jarviz_receiver.spawnfile} PID: ${child.pid} closed with code: ${code}`);
+        console.log(`Child ${jarviz_receiver.spawnfile} PID: ${jarviz_receiver.pid} closed with code: ${code}`);
     });
     jarviz_receiver.on('error', (err) => {
         if (err) console.log(err);
