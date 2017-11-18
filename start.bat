@@ -1,0 +1,1 @@
+start /min node "c:\jarviz-receiver-manager-master\src\index.js"

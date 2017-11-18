@@ -11,7 +11,7 @@
   },
   "scripts": {
     "start": "node src/index.js",
-    "autorun": "schtasks /create /TN jarviz-receiver /SC ONLOGON /RL HIGHEST /TR \"node c:\\jarviz-receiver-manager-master\\src\\index.js\" /F",
+    "autorun": "schtasks /create /TN jarviz-receiver /SC ONLOGON /RL HIGHEST /TR \"c:\\jarviz-receiver-manager-master\\start.bat\" /F",
     "setup": "npm run autorun && npm install && npm start"
   }
 }
