@@ -1,4 +1,4 @@
-var ghdownload = require('github-download');
+var ghdownload = require('./lib/github-download/lib/github-download');
 var exec = require('child_process').exec;
 var spawn = require('child_process').spawn;
 var rimraf = require('rimraf');
@@ -90,32 +90,37 @@ function getRemotePackageJson() {
 function download(callback) {
     console.log(`Downloading update...`);
 
-    rimraf(jarviz_receiver_directory, function () {
-        ghdownload({user: 'dmwallace', repo: 'jarviz-receiver', ref: 'master'}, jarviz_receiver_directory)
-            .on('dir', function (dir) {
-                console.log(dir)
-            })
-            .on('file', function (file) {
-                console.log(file)
-            })
-            .on('zip', function (zipUrl) { //only emitted if Github API limit is reached and the zip file is downloaded
-                console.log(zipUrl)
-            })
-            .on('error', function (err) {
-                console.error(err)
-            })
-            .on('end', function () {
-                /*exec('tree', function (err, stdout, sderr) {
-                    console.log(stdout)
-                });*/
-                console.log(`Installing...`);
-                exec('npm install --production', {cwd: jarviz_receiver_directory}, (error, stdout, stderror) => {
-                    console.log(stdout);
-
-                    callback();
+    try {
+        rimraf(jarviz_receiver_directory, function () {
+            ghdownload({user: 'dmwallace', repo: 'jarviz-receiver', ref: 'master'}, jarviz_receiver_directory)
+                .on('dir', function
+                (dir) {
+                    console.log(`dir: ${dir}`)
                 })
-            });
-    });
+                .on('file', function (file) {
+                    console.log(`file: ${file}`)
+                })
+                .on('zip', function (zipUrl) { //only emitted if Github API limit is reached and the zip file is downloaded
+                    console.log(zipUrl)
+                })
+                .on('error', function (err) {
+                    console.error(`err: ${err}`)
+                })
+                .on('end', function () {
+                    /*exec('tree', function (err, stdout, sderr) {
+                        console.log(stdout)
+                    });*/
+                    console.log(`Installing...`);
+                    exec('npm install --production', {cwd: jarviz_receiver_directory}, (error, stdout, stderror) => {
+                        console.log(stdout);
+
+                        callback();
+                    })
+                });
+        });
+    } catch (err) {
+        if (err) console.error(`error: ${err}`);
+    }
 }
 
 function launch() {
