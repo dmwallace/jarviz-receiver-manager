@@ -8,7 +8,7 @@ var fs = require('fs');
 let jarviz_receiver_directory = `${__dirname}/../jarviz-receiver`;
 let jarviz_receiver;
 
-let remotePackageJsonUrl = `https://raw.githubusercontent.com/dmwallace/jarviz-receiver/master/package.json`;
+let remotePackageJsonUrl = `https://raw.githubusercontent.com/dmwallace/jarviz-receiver/master/package.json?cacheBuster=${(new Date()).getTime()}`;
 
 
 checkForUpdate();
