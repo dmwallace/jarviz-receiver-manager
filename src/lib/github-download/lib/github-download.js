@@ -97,6 +97,10 @@ module.exports = function GithubDownload (params, dir) {
 function requestJSON (url, callback) {
   var _this = this
   request({url: url}, function (err, resp, body) {
+    if(resp === undefined) {
+	    _this.emit('error', new Error(`could not access GitHub, please check your internet connection`));
+    }
+    
     if (err) return this.emit('error', err)
     if (resp.statusCode === 403) return downloadZip.call(_this)
     if (resp.statusCode !== 200) _this.emit('error', new Error(url + ': returned ' + resp.statusCode + '\n\nbody:\n' + body))
