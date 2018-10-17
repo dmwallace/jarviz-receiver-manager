@@ -75,17 +75,6 @@ function getLocalPackageJson() {
 	}
 }
 
-/*getRemotePackageJson().then((response)=>{
-    console.log("response", response);
-    console.log("response.version", response.version);
-    console.log("package", package);
-    
-    console.log("JSON.stringify(package) === JSON.stringify(response)", JSON.stringify(package) === JSON.stringify(response));
-    
-}).catch((error)=>{
-    console.error(error);
-});*/
-
 function getRemotePackageJson() {
 	return new Promise((resolve, reject) => {
 		var request = https.request(remotePackageJsonUrl, function (res) {
